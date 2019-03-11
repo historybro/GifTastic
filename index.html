@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gif Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="btnRow"></div>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-9" id="gifRow">
+
+            </div>
+            
+            <div class="col-md-3">
+                <div class="input-bar">
+                    <label for="gifInput">Giphy Search</label>
+                    <div class="input-bar-item">
+                        <div class="input-group">
+                            <input type="gif" class="form-control" id="gifInput" aria-describedby="gifSearch"
+                                placeholder="Enter Search Term Here">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" id="gifSearch"><i class="fas fa-search"></i></button>
+                            </span>
+                            <small class="form-text text-muted">It's pronounced Gif not Jif, fite me m8</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
+</body>
+
+</html>
