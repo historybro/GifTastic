@@ -1,11 +1,14 @@
 var searchArray = ["dog", "cat", "pig"];
-var baseURL = "https://api.giphy.com/v1/gifs/api_key=HcXrD49KlaAfa24HDb3DIwcjswYZlicr&search?q=";
+var baseURL = "https://api.giphy.com/v1/gifs/search?q=";
+var apiKey = "&api_key=HcXrD49KlaAfa24HDb3DIwcjswYZlicr";
+var results = [];
 
-function buildPage() {
+
+function creatBtn() {
     $("#btnRow").empty();
     for (i = 0; i < searchArray.length; i++) {
         var buttonBuild = $("<button>")
-        buttonBuild.addClass("btn btn-primary getGiphy");
+        buttonBuild.addClass("getGiphy");
         buttonBuild.attr("data-name", searchArray[i]);
         buttonBuild.text(searchArray[i]);
         $("#btnRow").append(buttonBuild);
@@ -16,43 +19,75 @@ function clear() {
     $("#gifRow").empty();
 }
 
-$("#gifSearch").on("click", function(event) {
-    event.preventDefault();
-    var userInput = $("#gifInput")
-        .val()
-        .trim();
-    if (userInput != "") {
-            var newItem = userInput.toLowerCase();
-            searchArray.push(newItem);
-            buildPage();
-            console.log("Button Added")        
-    }
-});
-
-$(document).on("click", ".getGiphy", function(event){
-    event.preventDefault();
+function createGifs() {
     clear();
-    console.log("You clicked me!");
     var category = $(this).attr("data-name");
-    var queryURL = baseURL + category + "&limit=10";
+    var queryURL = baseURL + category + apiKey;
     $.ajax({
         url: queryURL,
         method: "GET"
-    }).then(function(response) {
-        console.log(response);
+    }).done(function (response) {
+        console.log(response.data);
         var results = response.data;
-        for (var i =0; i < results.length; i++) {
+        for (var i = 0; i < 10; i++) {
             var gifDiv = $("<div>");
-            var p = $("<p>").text("Rating: " + results[i].rating);
             var gifImg = $("<img>");
-            gifImg.attr("src", results[i].images.fixed_heighturl);
-            gifDiv.prepend(p);
-            gifDiv.prepend(gifImg);
+            var p = $("<p>").text("Rating: " + results[i].rating);
+            gifDiv.addClass("col-md-3");            
+            gifImg.attr('src', results[i].images.fixed_width_still.url);
+            gifImg.attr('data-still', results[i].images.fixed_width_still.url);
+            gifImg.attr('data-state', 'still');
+            gifImg.addClass('gif');
+            gifImg.attr('data-animate', results[i].images.fixed_width.url);
+            //gifDiv.addClass('col-md-3');
+            gifDiv.append(gifImg);
+            gifDiv.append(p);
             $('#gifRow').prepend(gifDiv);
         }
-        
     });
+}
+
+$("#gifSearch").on("click", function (event) {
+    event.preventDefault();
+    var userInput = $("#gifInput").val().trim();
+    if (userInput != "") {
+        var newItem = userInput.toLowerCase();
+        searchArray.push(newItem);
+        creatBtn();
+        console.log("Button Added")
+    }
+    $("#gifInput").val("");
 });
 
+$(document).on("click", ".getGiphy",  createGifs);
 
-buildPage();
+// $(document).on("click", "#tenMore", function () {
+//     for (var i = 10; i < 20; i++) {
+//         var gifDiv = $("<div>");
+//         var p = $("<p>").text("Rating: " + results[i].rating);
+//         var gifImg = $("<img>");
+//         gifImg.attr('src', results[i].images.fixed_width_still.url);
+//         gifImg.attr('data-still', results[i].images.fixed_width_still.url);
+//         gifImg.attr('data-state', 'still');
+//         gifImg.addClass('gif');
+//         gifImg.attr('data-animate', results[i].images.fixed_width.url);
+//         gifDiv.append(gifImg);
+//         gifDiv.append(p);
+//         $('#gifRow').prepend(gifDiv);
+//     }
+
+// });
+
+$(document).on('click', '.gif', function () {
+    var state = $(this).attr('data-state');
+    if (state == 'still') {
+        $(this).attr('src', $(this).data('animate'));
+        $(this).attr('data-state', 'animate');
+    } else {
+        $(this).attr('src', $(this).data('still'));
+        $(this).attr('data-state', 'still');
+    };
+});
+
+creatBtn();
+$("#tenMore").hide();
