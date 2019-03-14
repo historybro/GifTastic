@@ -15,10 +15,20 @@
 <body>
     <div class="container">
 
+        <div class="row" id="logo">
+            <div class="col-md-10">
+                    <div><img src="assets/images/giphylogo.png" alt="giphyLogo" id="giphyLogo"/></div>
+            </div>
+            <div class="cold-md-2" id="ms">
+                <h1><span id="meme">MEME</span><br>
+                    <span id="search">SEARCH</span></h1>              
+                
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
-                <div class="input-bar">
-                    <label for="gifInput"><img src="assets/images/giphylogo.png" alt="giphyLogo"/></label>
+                <div class="input-bar">                    
                     <div class="input-bar-item">
                         <div class="input-group">
                             <input type="gif" class="form-control" id="gifInput" aria-describedby="gifSearch"
@@ -37,6 +47,14 @@
                 <div id="btnRow"></div>
             </div>
         </div>
+        <div class="row">
+                <div class="col-md-12">
+                    <div id="permbtnRow">
+                        <button id="favorite" class="btn btn-info">Favorites</button>
+                        <button id="tenMore" class="btn btn-info">More Gifs!</button>
+                    </div>
+                </div>
+            </div>
 
         <div class="row" id="gifRow"></div>
 

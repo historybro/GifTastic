@@ -1,5 +1,6 @@
 #btnRow {
     margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #gifRow {
@@ -9,4 +10,49 @@
 body { 
     background-image: url("../images/bg.png");
     background-repeat: repeat;
+}
+
+
+.gifDiv {
+    width: auto;
+    background: white;
+    margin: 10px 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.gif {
+    border-bottom: solid 2px black;
+
+}
+
+h1 {
+    font-weight: bold;
+    margin-top: 35%;
+}
+
+#meme {
+    color: magenta;
+}
+
+#search {
+    color: aqua;
+}
+
+#logo {
+    margin-bottom: 5px;
+}
+
+.storage {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.rating {
+    margin-right: 2px;
+}
+
+.getGiphy {
+    margin-right: 3px;
 }
