@@ -1,4 +1,4 @@
-var searchArray = ["dog", "cat", "pig"];
+var searchArray = ["crying jordan", "kermit", "office monkey"];
 var baseURL = "https://api.giphy.com/v1/gifs/search?q=";
 var apiKey = "&api_key=HcXrD49KlaAfa24HDb3DIwcjswYZlicr";
 var results = [];
