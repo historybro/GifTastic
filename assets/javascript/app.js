@@ -4,7 +4,6 @@ var searchArray = ["crying jordan", "kermit", "office monkey"];
 var baseURL = "https://api.giphy.com/v1/gifs/search?q=";
 var apiKey = "&api_key=HcXrD49KlaAfa24HDb3DIwcjswYZlicr";
 var results = [];
-var favorites = [];
 //janky fix for the more button
 i = 0;
 
@@ -33,20 +32,23 @@ function gifDivs() {
     var storage = $("<div class='row'>");
     var gifImg = $("<img>");
     var fav = $("<button>")
-    var p = $("<p>").text("Rating: " + results[i].rating);
+    var p = $("<p>");
     gifDiv.addClass("gifDiv");
-    p.addClass("col-md-8 rating");
+    p.addClass("col-md-6 rating");
     storage.addClass("storage");
     gifImg.attr('src', results[i].images.fixed_width_still.url);
     gifImg.attr('data-still', results[i].images.fixed_width_still.url);
     gifImg.attr('data-state', 'still');
-    fav.attr("data-numb", i);
+    fav.attr("data-numb", i);    
     gifImg.addClass('gif');
     gifImg.attr('data-animate', results[i].images.fixed_width.url);
-    fav.addClass("col-md-3 favBtn btn btn-danger");
+    fav.addClass("col-md-2 favBtn btn btn-danger");
     fav.html("<i class='far fa-heart'></i>");
+    p.html("Rating: " + results[i].rating);
+    gifDiv.attr('title', "Title: " + results[i].title);
     gifDiv.append(gifImg);
     storage.append(p);
+    storage.append(dl);
     storage.append(fav);
     gifDiv.append(storage);
     $('#gifRow').prepend(gifDiv);
@@ -58,6 +60,7 @@ function ajax() {
         url: queryURL,
         method: "GET"
     }).done(function (response) {
+        console.log(response);
         results = response.data;
         for (i = 0; i < 10; i++) {
             gifDivs();
@@ -91,6 +94,7 @@ function favGifs() {
         gifImg.attr('data-state', 'still');
         gifImg.addClass('gif');
         gifImg.attr('data-animate', favorites[i].anim);
+        gifDiv.attr('title', "Title: " + favorites[i].title);
         fav.addClass("col-md-3 deleteBtn btn btn-danger");
         fav.html("<i class='far fa-trash-alt'></i>");
         fav.attr("data-numb", i);
@@ -155,6 +159,7 @@ $(document).on('click', '.gif', function () {
 //Favorites button on click that clears the gifrow and calls favorited gifs
 $(document).on('click', '#favorite', function () {
     clear();
+    $("#tenMore").hide();
     favGifs();
 });
 
@@ -165,28 +170,36 @@ $(document).on('click', '.favBtn', function () {
     var src = results[numb].images.fixed_width_still.url;
     var animate = results[numb].images.fixed_width.url;
     var rating = results[numb].rating;
+    var gifTitle = results[numb].title;
 
-    var fav = {
+    var fav= {
         url: src,
         still: stop,
         anim: animate,
-        rate: rating
+        rate: rating,
+        title: gifTitle
     }
-
     favorites.push(fav);
+    localStorage.setItem("Favorites", JSON.stringify(favorites));
+
+
 });
 
 //delete button on click removes gif from favorites
 $(document).on('click', '.deleteBtn', function () {
     var numb = $(this).data("numb");
-    console.log(numb);
-    console.log(favorites);
     favorites.splice(numb, 1);
-    console.log(favorites);
+    localStorage.setItem("Favorites", JSON.stringify(favorites));
+    favorites = JSON.parse(localStorage.getItem("Favorites"));
     clear();
     favGifs();
 });
 
+//image should download on click...
+
+
 //hides the more button until there are gifs, and creates the intial array buttons
 creatBtn();
 $("#tenMore").hide();
+favorites = JSON.parse(localStorage.getItem("Favorites"));
+console.log("'I'd just like to interject for a moment. What you’re referring to as Linux, is in fact, GNU/Linux, or as I’ve recently taken to calling it, GNU plus Linux. Linux is not an operating system unto itself, but rather another free component of a fully functioning GNU system made useful by the GNU corelibs, shell utilities and vital system components comprising a full OS as defined by POSIX. Many computer users run a modified version of the GNU system every day, without realizing it. Through a peculiar turn of events, the version of GNU which is widely used today is often called “Linux”, and many of its users are not aware that it is basically the GNU system, developed by the GNU Project. There really is a Linux, and these people are using it, but it is just a part of the system they use. Linux is the kernel: the program in the system that allocates the machine’s resources to the other programs that you run. The kernel is an essential part of an operating system, but useless by itself; it can only function in the context of a complete operating system. Linux is normally used in combination with the GNU operating system: the whole system is basically GNU with Linux added, or GNU/Linux. All the so-called “Linux” distributions are really distributions of GNU/Linux.' - Richard Stallman");

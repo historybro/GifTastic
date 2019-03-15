@@ -29,6 +29,7 @@ body {
 
 h1 {
     font-weight: bold;
+    font-family: 'B612 Mono', monospace;
     margin-top: 35%;
 }
 
@@ -55,4 +56,10 @@ h1 {
 
 .getGiphy {
     margin-right: 3px;
+}
+
+p {
+    font-weight: bold;
+    font-family: 'B612 Mono', monospace;
+    font-size: 12px;
 }
