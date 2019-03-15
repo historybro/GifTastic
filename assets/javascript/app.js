@@ -48,7 +48,6 @@ function gifDivs() {
     gifDiv.attr('title', "Title: " + results[i].title);
     gifDiv.append(gifImg);
     storage.append(p);
-    storage.append(dl);
     storage.append(fav);
     gifDiv.append(storage);
     $('#gifRow').prepend(gifDiv);
